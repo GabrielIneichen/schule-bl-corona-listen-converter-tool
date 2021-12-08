@@ -61,7 +61,8 @@ output = output.apply(mapTel, axis=1)
 
 # Speichern der Daten
 cols = ["S_Vorname", "S_Name", "S_Geburtsdatum", "S_Geschlecht", "S_Mobil", "S_Telefon", "S_EMail", "S_Strasse",
-        "S_PLZ", "S_Ort", "P_ERZ1_Rolle", "Erziehungsberechtigter"]
+        "S_PLZ", "S_Ort"]
+cols2 = ["Erziehungsberechtigter"]
 
 path = re.findall(string=vorlage, pattern="(.*\/).*")[0]
 file = re.findall(string=file_path, pattern=".*\/(.*\.csv)")[0]
@@ -72,7 +73,8 @@ book = load_workbook(target_excel)
 writer = pd.ExcelWriter(target_excel, engine='openpyxl')
 writer.book = book
 writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
-output.to_excel(writer, "Vorlage Ereignismanagement", startrow=12, startcol=2, header=False, index=False, columns=cols)
+output.to_excel(writer, "Vorlage Ereignismanagement", startrow=2, startcol=0, header=False, index=False, columns=cols)
+output.to_excel(writer, "Vorlage Ereignismanagement", startrow=2, startcol=15, header=False, index=False, columns=cols2)
 
 writer.save()
 print("Alles erledigt.")
